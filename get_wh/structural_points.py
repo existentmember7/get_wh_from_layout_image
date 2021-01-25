@@ -189,6 +189,17 @@ def calculate_length(y, pix_y, pix_x):
     x = y * pix_x/pix_y
     return x
 
+def show_transform_image(image, pts, width):
+    print(pts)
+    pts[0][0] = pts[0][0] + width*0.1
+    pts[1][0] = pts[1][0] + width*0.1
+    pts[2][0] = pts[2][0] + width*0.1
+    pts[3][0] = pts[3][0] + width*0.1
+    print(pts)
+    wraped = four_point_transform(image, pts)
+    cv2.imwrite("transform_image.png", wraped)
+    return None
+
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -266,6 +277,10 @@ def main():
     rx = calculate_length(3, r_wraped.shape[0], r_wraped.shape[1])
     print("left_x: ", lx)
     print("right_x: ", rx)
+
+    for_report_image = np.array(Image.open("/home/han/Documents/han/pytorch.room.layout/datasets/test/images/test1.png"))
+    show_transform_image(for_report_image, l_pts, width)
+
     
 
 
